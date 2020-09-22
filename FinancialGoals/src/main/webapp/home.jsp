@@ -7,6 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Manage Financial Goals</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -125,12 +126,20 @@ ${r}
   <td><c:out value="${goal.getName()}" /></td>
   <td><c:out value="${goal.getTargetAmount()}" /></td>
   <fmt:parseNumber var = "i" type = "number" integerOnly="true" value = "${goal.getContribute()/goal.getTargetAmount()*100}" />
-  <td><c:out value="${i}" />%</td>
+  <c:choose>
+  <c:when test="${i==100}">
+  <c:set var="rate" value="Completed" />
+  </c:when>
+  <c:otherwise>
+  <c:set var="rate" value="${i}%" />
+  </c:otherwise>
+  </c:choose>
+  <td><c:out value="${rate}" /></td>
   <c:choose>
   <c:when test="${goal.getContribute()!=goal.getTargetAmount()}">
-  <td><a href="view?id=${goal.getId()}">Click Here</a></td>
+  <td><a href="view?gid=${goal.getId()}">Click Here</a></td>
   </c:when>
-  <c:otherwise><td><a href="delete?id=${goal.getId()}">Delete It</a></td></c:otherwise>
+  <c:otherwise><td><a href="delete?gid=${goal.getId()}">Delete It</a></td></c:otherwise>
   </c:choose>
   
   </tr>
