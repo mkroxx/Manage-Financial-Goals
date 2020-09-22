@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>${goal.getName()}</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -93,7 +94,7 @@ th {
 
 </head>
 <body>
-<h3>${goal.getName()}</h3>
+<h1 align="center">${goal.getName()}</h1>
 <div>
 <table>
  <tr>
@@ -131,7 +132,7 @@ th {
 </table>
 </div>
 <br/><br/><br/>
-<div class="form">
+<div class="form" align="center">
 <form action="update" method="post">
 <label for="contribute">Contribute Amount:</label>
 <input type="number" min="100" step="100" max="500" name="amount" required="required"/>
