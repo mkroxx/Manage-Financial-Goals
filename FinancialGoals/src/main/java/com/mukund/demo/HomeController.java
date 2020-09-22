@@ -9,7 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class HomeController {
 	@Autowired
-	GoalRepo repo;
+	private GoalRepo repo;
+	private int id;
 	
 	@RequestMapping({"/","home"})
 	public ModelAndView getHomepage(String status) {
@@ -36,16 +37,23 @@ public class HomeController {
 	}
 	
 	@RequestMapping("delete")
-	public ModelAndView deleteGoal(int id) {
+	public ModelAndView deleteGoal(String gid) {
 		ModelAndView mv = new ModelAndView();
 		try {
+			id=Integer.parseInt(gid);
 			repo.deleteById(id);
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 			mv.addObject("status",e.getMessage());
 		}
-		mv.addObject("status","Deleted Successfully.");
+		mv.addObject("status","<script>\r\n"
+				+ "    $(window).bind(\"load\", function() {\r\n"
+				+ "        setTimeout(function() { \r\n"
+				+ "            alert('Deleted Successfully.');\r\n"
+				+ "     }, 1000);\r\n"
+				+ "    });\r\n"
+				+ "</script>");
 		mv.setViewName("redirect:home");
 		return mv;
 	}
